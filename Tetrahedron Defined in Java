@@ -1,0 +1,77 @@
+////////////////////////////////////////////////////////////////////////////
+
+import java.text.DecimalFormat;
+
+
+public class Tetrahedron {
+   private static int count;
+   private String level;
+   private double edge;
+  
+   public Tetrahedron(){
+       this.level="";
+       this.edge=0;
+       count++;
+   }
+   public Tetrahedron(String str,double a){
+       this.setLevel(str);
+       this.setEdge(a);
+       count++;
+   }
+   public double getEdge() {
+       return edge;
+   }
+   public boolean setEdge(double edge) {
+       if(edge>=0){
+           this.edge = edge;
+           return true;
+       }
+       return false;
+   }
+   public String getLevel() {
+       return level;
+   }
+   public boolean setLevel(String level) {
+       if(level!=null){
+           this.level = level;
+           return true;
+       }
+       return false;
+   }
+   public double getHeight(){
+       return (Math.sqrt(2*this.edge/3.0));
+   }
+   public double getSurfaceArea(){
+       return (Math.sqrt(3.0)*this.edge*this.edge);
+   }
+   public double getVolume(){
+       return (this.edge*this.edge*this.edge/(6*Math.sqrt(2.0)));
+   }
+   public String toString(){
+       String ret="";
+       DecimalFormat formatter = new DecimalFormat("#,##0.0##");
+       ret+="Tetrahedron \""+this.level+"\" with six edges of length "+this.edge+" has:";
+       ret+="\n\theight = "+formatter.format(this.getHeight())+" units";
+       ret+="\n\tsurface area = "+formatter.format(this.getSurfaceArea())+" square units";
+       ret+="\n\tvolume = "+formatter.format(this.getVolume())+" cubic units";
+       return ret;
+   }
+   public static int getCount(){
+       return count;
+   }
+   public static void resetCount(int c){
+       count=c;
+   }
+   public boolean equals(Object obj){
+       if(!(obj instanceof Tetrahedron)){
+           return false;
+       }
+       else{
+           Tetrahedron d=(Tetrahedron) obj;
+           return(this.level.equalsIgnoreCase(d.getLevel()) && Math.abs(edge-d.getEdge())<.000001);
+       }
+   }
+   public int hashCode(){
+       return 0;
+   }
+}
